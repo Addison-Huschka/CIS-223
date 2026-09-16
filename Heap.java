@@ -14,15 +14,13 @@ public class Heap {
      * @return The number of elements in the heap.
      */
     public int size() {
-        int size = keys.length;
-        return size;
+        return n;
     }
 
     /** Returns true if the heap is empty, otherwise false.
      * @return True if the heap is empty, otherwise false.
      */
     public boolean isEmpty() {
-        int n = keys.length;
         if (n == 0) {
             return true;
         } else {
