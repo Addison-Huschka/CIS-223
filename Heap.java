@@ -14,14 +14,20 @@ public class Heap {
      * @return The number of elements in the heap.
      */
     public int size() {
-        // ADD CODE TO MAKE SIZE() WORK
+        int size = keys.length;
+        return size;
     }
 
     /** Returns true if the heap is empty, otherwise false.
      * @return True if the heap is empty, otherwise false.
      */
     public boolean isEmpty() {
-        // ADD CODE TO MAKE ISEMPTY() WORK
+        int n = keys.length;
+        if (n == 0) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     /** Returns the minimum key in the heap
