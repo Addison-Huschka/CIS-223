@@ -37,7 +37,7 @@ public class Heap {
         if (n == 0) {
             throw new java.util.NoSuchElementException();
         }
-        // ADD CODE TO MAKE MIN() WORK
+        return keys[0];
     }
 
     /** Adds a key to the heap.
