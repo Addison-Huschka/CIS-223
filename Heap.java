@@ -50,12 +50,18 @@ public class Heap {
             throw new java.lang.IllegalStateException();
         }
         int i = n;
-        while (key > keys[i-1] && i > 0) {
-            keys[i]= keys[i+1];
-            i--;
+        if (n == 0) {
+            keys[0] = key;
+            n++;
+        }    
+        else {
+            while (i > 0 && key < keys[i - 1]) {
+                keys[i] = keys[i - 1];
+                i--;
+            }
+            keys[i] = key;
+            n++;
         }
-        keys[i] = key;
-        n++;
     }
 
     /** Removes and returns the minimum key from the heap.
@@ -73,14 +79,5 @@ public class Heap {
         }
         n--;
         return minKey;
-    }
-    public static void main(String[] args) {
-        Heap h = new Heap();
-        h.add(5);
-        h.add(3);
-        h.add(8);
-        System.out.println(h.min()); // Should print 3
-        System.out.println(h.removeMin()); // Should print 3
-        System.out.println(h.min()); // Should print 5
     }
 }
