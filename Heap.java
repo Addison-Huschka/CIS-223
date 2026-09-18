@@ -49,18 +49,32 @@ public class Heap {
         if (n >= MAX_SIZE) {
             throw new java.lang.IllegalStateException();
         }
-        // ADD CODE TO MAKE ADD() WORK
+        int i = keys.length - 1;
+        while (key > keys[i]){
+            keys[i]= keys[i+1];
+            i--;
+        }
+        keys[i] = key;
+        n++;
     }
 
     /** Removes and returns the minimum key from the heap.
      *  @return The key with the minimum value.
      *  @throws NoSuchElementException if the heap is already empty.
-     */
+     
     public int removeMin() {
         // Throw an exception if heap is already empty
         if (n <= 0) {
             throw new java.util.NoSuchElementException();
         }
         // ADD CODE TO MAKE REMOVEMIN() WORK
+    }*/
+    public static void main(String[] args) {
+        Heap h = new Heap();
+        h.add(5);
+        h.add(3);
+        h.add(8);
+        System.out.println(h.min()); // Should print 3
+        System.out.println(h.min()); // Should print 5
     }
 }
