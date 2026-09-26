@@ -106,23 +106,27 @@ public final class Quicksort {
         if (lo == hi) {
             return lo; // Only one element, return its index
         }
-        else if (hi - lo < 2) {
-            return lo; // Two elements, choose the first as pivot
-        }
-        else {
-            int pivotIndex = medianOfThree(a, lo, hi);
-            Key pivotValue = a[pivotIndex];
-            Key.swap(a, pivotIndex, hi); // Move pivot to end
-            int storeIndex = lo;
+        int pivotIndex = medianOfThree(a, lo, hi);
+        Key pivotValue = a[pivotIndex];
+        Key.swap(a, pivotIndex, hi); // Move pivot to end
+        int storeIndex = lo;
 
-            for (int i = lo; i < hi; i++) {
-                if (a[i].compareTo(pivotValue) < 0) {
-                    Key.swap(a, i, storeIndex);
-                    storeIndex++;
-                }
+        for (int i = lo; i < hi; i++) {
+            if (a[i].compareTo(pivotValue) < 0) {
+                Key.swap(a, i, storeIndex);
+                storeIndex++;
             }
-            Key.swap(a, storeIndex, hi); // Move pivot to its final place
-            return storeIndex;
+        }
+        Key.swap(a, storeIndex, hi); // Move pivot to its final place
+        return storeIndex;
+    }
+    public static void main(String[] args) {
+        // Example usage
+        Key[] keys = Key.arrayOf(3, 6, 6, 8, 5, 1, 4, 10, 2, 7);
+        Quicksort.sort(keys);
+        for (Key key : keys) {
+            System.out.print(key + " ");
         }
     }
 }
+
