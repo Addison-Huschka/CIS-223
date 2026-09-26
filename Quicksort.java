@@ -1,7 +1,7 @@
 /**
  * An in-place quicksort with median-of-three pivot selection.
  *
- * Complete the sort(), medianOfThree(), and partitio() methods. Do not change their signatures.
+ * Complete the sort(), medianOfThree(), and partition() methods. Do not change their signatures.
  * Rules:
  *  - Sort in place. Do not allocate any array, list, or other collection. The only extra space
  *    you may use is a constant number of local variables per call, plus the recursion stack.
@@ -103,6 +103,26 @@ public final class Quicksort {
      */
     static int partition(Key[] a, int lo, int hi) {
         // TODO: choose the pivot, scan and swap elements, put the pivot back into its final place
-        throw new UnsupportedOperationException("Quicksort.partition is not implemented yet");
+        if (lo == hi) {
+            return lo; // Only one element, return its index
+        }
+        else if (hi - lo < 2) {
+            return lo; // Two elements, choose the first as pivot
+        }
+        else {
+            int pivotIndex = medianOfThree(a, lo, hi);
+            Key pivotValue = a[pivotIndex];
+            Key.swap(a, pivotIndex, hi); // Move pivot to end
+            int storeIndex = lo;
+
+            for (int i = lo; i < hi; i++) {
+                if (a[i].compareTo(pivotValue) < 0) {
+                    Key.swap(a, i, storeIndex);
+                    storeIndex++;
+                }
+            }
+            Key.swap(a, storeIndex, hi); // Move pivot to its final place
+            return storeIndex;
+        }
     }
 }
