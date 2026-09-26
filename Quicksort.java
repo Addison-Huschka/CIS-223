@@ -120,13 +120,5 @@ public final class Quicksort {
         Key.swap(a, storeIndex, hi); // Move pivot to its final place
         return storeIndex;
     }
-    public static void main(String[] args) {
-        // Example usage
-        Key[] keys = Key.arrayOf(3, 6, 6, 8, 5, 1, 4, 10, 2, 7);
-        Quicksort.sort(keys);
-        for (Key key : keys) {
-            System.out.print(key + " ");
-        }
-    }
 }
 
