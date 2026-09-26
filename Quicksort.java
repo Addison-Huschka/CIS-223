@@ -64,7 +64,24 @@ public final class Quicksort {
      */
     static int medianOfThree(Key[] a, int lo, int hi) {
         // TODO: at most three comparisons, no swaps, no array modification.
-        throw new UnsupportedOperationException("Quicksort.medianOfThree is not implemented yet");
+        int mid = lo + (hi - lo) / 2;
+        if (a[lo].compareTo(a[mid]) > 0) {
+            if (a[mid].compareTo(a[hi]) > 0) {
+                return mid; // lo > mid > hi
+            } else if (a[lo].compareTo(a[hi]) > 0) {
+                return hi; // lo > hi >= mid
+            } else {
+                return lo; // hi >= lo > mid
+            }
+        } else {
+            if (a[lo].compareTo(a[hi]) > 0) {
+                return lo; // mid >= lo > hi
+            } else if (a[mid].compareTo(a[hi]) > 0) {
+                return hi; // mid > hi >= lo
+            } else {
+                return mid; // lo <= mid <= hi
+            }
+        }
     }
 
     /**
