@@ -39,7 +39,11 @@ public final class Quicksort {
      */
     private static void sort(Key[] a, int lo, int hi) {
         // TODO: base case, then partition and recurse on the two sides.
-        
+        if (lo < hi) {
+            int pivotIndex = partition(a, lo, hi);
+            sort(a, lo, pivotIndex - 1);
+            sort(a, pivotIndex + 1, hi);
+        }
     }
 
     /**
