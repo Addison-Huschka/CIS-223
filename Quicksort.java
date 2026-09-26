@@ -24,7 +24,10 @@ public final class Quicksort {
      */
     public static void sort(Key[] a) {
         // TODO: handle the trivial cases, then call your recursive helper on the full range.
-        throw new UnsupportedOperationException("Quicksort.sort is not implemented yet");
+        if (a == null) {
+            throw new IllegalArgumentException("Input array cannot be null");
+        }
+        sort(a, 0, a.length - 1);
     }
 
     /**
@@ -36,7 +39,7 @@ public final class Quicksort {
      */
     private static void sort(Key[] a, int lo, int hi) {
         // TODO: base case, then partition and recurse on the two sides.
-        throw new UnsupportedOperationException("Quicksort.sort(a, lo, hi) is not implemented yet");
+        
     }
 
     /**
