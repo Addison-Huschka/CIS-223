@@ -30,7 +30,30 @@ public class Sort {
      * @param column the column to sort by, 0 to Card.COLUMNS - 1
      */
     public static void countingSort(Card[] cards, int column) {
-        throw new UnsupportedOperationException("countingSort is not implemented yet");
+        if (cards == null) {
+            throw new IllegalArgumentException("The deck to sort cannot be null.");
+        }
+        if (cards.length <= 1) {
+            return;
+        }
+        int[] count = new int[10];
+        for (Card card : cards) {
+            count[card.getColumn(column)]++;
+        }
+
+        for (int i = 1; i < count.length; i++) {
+            count[i] += count[i - 1];
+        }
+
+        Card[] output = new Card[cards.length];
+        for (int i = cards.length - 1; i >= 0; i--) {
+            Card card = cards[i];
+            int digit = card.getColumn(column);
+            int index = --count[digit];
+            output[index] = card;
+        }
+
+        System.arraycopy(output, 0, cards, 0, cards.length);
     }
 
     /**
@@ -51,6 +74,18 @@ public class Sort {
      *        firstColumn &lt;= lastColumn
      */
     public static void radixSort(Card[] cards, int firstColumn, int lastColumn) {
-        throw new UnsupportedOperationException("radixSort is not implemented yet");
+        if (cards == null) {
+            throw new IllegalArgumentException("The deck to sort cannot be null.");
+        }
+        if (cards.length <= 1) {
+            return;
+        }
+        if (firstColumn > lastColumn) {
+            throw new IllegalArgumentException("firstColumn must not be after lastColumn.");
+        }
+
+        for (int column = lastColumn; column >= firstColumn; column--) {
+            countingSort(cards, column);
+        }
     }
 }
