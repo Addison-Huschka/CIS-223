@@ -225,7 +225,7 @@ public class BST {
      * is a binary search tree. This method doesn't change the tree.
      */
     public boolean isBST() {
-        return isBST(root);
+        return isBST(root, null, null);
     }
 
     /**
@@ -244,17 +244,14 @@ public class BST {
      *       must be distinct, so a key equal to an ancestor's key is not
      *       allowed on either side.
      */
-    private static boolean isBST(Node x) {
+    private static boolean isBST(Node x, Integer min, Integer max) {
         if (x == null) {
             return true;
         }
-        if (x.left != null && x.left.key >= x.key) {
+        if ((min != null && x.key <= min) || (max != null && x.key >= max)) {
             return false;
         }
-        if (x.right != null && x.right.key <= x.key) {
-            return false;
-        }
-        return isBST(x.left) && isBST(x.right);
+        return isBST(x.left, min, x.key) && isBST(x.right, x.key, max);
     }
 
     /**
@@ -266,11 +263,26 @@ public class BST {
      * @param z a node of this tree; not null
      */
     public void delete(Node z) {
+        if (z.left == null) {
+            transplant(z, z.right);
+        } else if (z.right == null) {
+            transplant(z, z.left);
+        }
+        else {
+            Node y = minimum(z.right);
+            if (y.p != z) {
+                transplant(y, y.right);
+                y.right = z.right;
+                y.right.p = y;
+            }
+            transplant(z, y);
+            y.left = z.left;
+            y.left.p = y;
+        }
         // TODO: Write TREE-DELETE, following the pseudocode in Section 12.3
         //       and the four cases in Figure 12.4. Use the given transplant
         //       and your minimum. Move nodes; don't copy keys from one node
         //       to another.
-        throw new UnsupportedOperationException("delete isn't written yet");
     }
 
     /**
@@ -284,16 +296,21 @@ public class BST {
      * @return a new tree with height floor(lg n), where n = keys.length
      */
     public static BST buildBalanced(int[] keys) {
-        // TODO: This builds a tree that holds the right keys, but inserting
-        //       sorted keys one at a time makes every node a right child: a
-        //       path of height n - 1, the worst case for every BST operation.
-        //       Build the balanced tree instead, as described above. A
-        //       recursive helper that builds the subtree for keys[low..high]
-        //       works well, adding Nodes directly instead of calling insert(). 
         BST t = new BST();
-        for (int k : keys) {
-            t.insert(k);
-        }
+        t.root = buildBalanced(keys, 0, keys.length - 1, null);
         return t;
+    }
+
+    private static Node buildBalanced(int[] keys, int low, int high, Node parent) {
+        if (low > high) {
+            return null;
+        }
+
+        int middle = low + (high - low) / 2;
+        Node x = new Node(keys[middle]);
+        x.p = parent;
+        x.left = buildBalanced(keys, low, middle - 1, x);
+        x.right = buildBalanced(keys, middle + 1, high, x);
+        return x;
     }
 }
